@@ -20,8 +20,9 @@ function createDiv(restaurant) {
   let ul = document.createElement('ul');
   let input = document.createElement('input');
   let img = document.createElement('img');
+  let button = document.createElement('button');
   input.setAttribute("type", "text");
-  input.setAttribute("placeholder", "Add a review");
+  input.setAttribute("placeholder", "Write a review");
   rest.reviews.forEach(review => {
     let li = document.createElement('li');
     li.innerText = `${review.content}
@@ -31,9 +32,11 @@ function createDiv(restaurant) {
   p.innerText = `${rest.name} - ${rest.location}
   Price Point: ${rest.priceRange}`;
   img.setAttribute("src", rest.imageURL)
+  button.innerText = "Add Review";
   div.appendChild(p);
   div.appendChild(img);
   ul.appendChild(input);
+  ul.appendChild(button);
   div.appendChild(ul);
   main.appendChild(div);
 }
