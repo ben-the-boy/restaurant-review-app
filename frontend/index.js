@@ -36,6 +36,7 @@ function createDiv(restaurant) {
   img.setAttribute("src", rest.imageURL)
   button.innerText = "Add Review";
   button.setAttribute("restaurant-id", `${rest.id}`);
+  //FIGURE OUT HOW TO SUBMIT CORRECT VALUES FOR EACH NEW REVIEW 
   button.addEventListener('click', function() {
     let content = document.querySelector('input').value;
     let rating = document.getElementById('rating').value;
