@@ -13,12 +13,13 @@ function loadRestaurants() {
 }
 
 function createDiv(restaurant) {
-  let rest = new Restaurant(restaurant.name, restaurant.location, restaurant.price_range, restaurant.reviews);
+  let rest = new Restaurant(restaurant.name, restaurant.location, restaurant.price_range, restaurant.image_url, restaurant.reviews);
   let main = document.querySelector('main');
   let div = document.createElement('div');
   let p = document.createElement('p');
   let ul = document.createElement('ul');
   let input = document.createElement('input');
+  let img = document.createElement('img');
   input.setAttribute("type", "text");
   input.setAttribute("placeholder", "Add a review");
   rest.reviews.forEach(review => {
@@ -29,17 +30,20 @@ function createDiv(restaurant) {
   })
   p.innerText = `${rest.name} - ${rest.location}
   Price Point: ${rest.priceRange}`;
+  img.setAttribute("src", rest.imageURL)
   div.appendChild(p);
+  div.appendChild(img);
   ul.appendChild(input);
   div.appendChild(ul);
   main.appendChild(div);
 }
 
 class Restaurant {
-  constructor(name, location, priceRange, reviews) {
+  constructor(name, location, priceRange, imageURL, reviews) {
     this.name = name;
     this.location = location;
     this.priceRange = priceRange;
+    this.imageURL = imageURL;
     this.reviews = reviews
   }
 }
