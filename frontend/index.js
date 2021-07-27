@@ -13,7 +13,7 @@ function loadRestaurants() {
 }
 
 function createDiv(restaurant) {
-  let rest = new Restaurant(restaurant.name, restaurant.location, restaurant.price_range, restaurant.image_url, restaurant.reviews);
+  let rest = new Restaurant(restaurant.id, restaurant.name, restaurant.location, restaurant.price_range, restaurant.image_url, restaurant.reviews);
   let main = document.querySelector('main');
   let div = document.createElement('div');
   let p = document.createElement('p');
@@ -33,13 +33,14 @@ function createDiv(restaurant) {
   Price Point: ${rest.priceRange}`;
   img.setAttribute("src", rest.imageURL)
   button.innerText = "Add Review";
-  /*button.addEventListener('click', function() {
-    let content = ;
-    let rating = ;
-    let restaurantID = ;
-    let review = new Review();
+  button.setAttribute("restaurant-id", `${rest.id}`);
+  button.addEventListener('click', function() {
+    let content = document.querySelector('input').value;
+    let rating = document.getElementById('rating').value;
+    let restaurantID = parseInt(button.getAttribute('restaurant-id'));
+    let review = new Review(content, rating, restaurantID);
     addReview(review);
-  });*/
+  });
   div.appendChild(p);
   div.appendChild(img);
   ul.appendChild(input);
@@ -50,7 +51,8 @@ function createDiv(restaurant) {
 }
 
 class Restaurant {
-  constructor(name, location, priceRange, imageURL, reviews) {
+  constructor(id, name, location, priceRange, imageURL, reviews) {
+    this.id = id;
     this.name = name;
     this.location = location;
     this.priceRange = priceRange;
@@ -68,7 +70,24 @@ class Review {
 }
 
 function addReview(review) {
-
+  return fetch("http://localhost:3000/reviews", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        "content": review.content,
+        "rating": review.rating,
+        "restaurant_id": review.restaurantID
+      })
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(object) {
+      console.log(object);
+    })
 }
 
 function addRatingSelector(ul) {
