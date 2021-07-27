@@ -23,10 +23,12 @@ function createDiv(restaurant) {
   input.setAttribute("placeholder", "Add a review");
   rest.reviews.forEach(review => {
     let li = document.createElement('li');
-    li.innerText = review.content;
+    li.innerText = `${review.content}
+    ${review.rating}/5`;
     ul.appendChild(li);
   })
-  p.innerText = rest.name;
+  p.innerText = `${rest.name} - ${rest.location}
+  Price Point: ${rest.priceRange}`;
   div.appendChild(p);
   ul.appendChild(input);
   div.appendChild(ul);
