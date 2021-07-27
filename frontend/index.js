@@ -18,9 +18,11 @@ function createDiv(restaurant) {
   let div = document.createElement('div');
   let p = document.createElement('p');
   let ul = document.createElement('ul');
+  let reviewDiv = document.createElement('div');
   let input = document.createElement('input');
   let img = document.createElement('img');
   let button = document.createElement('button');
+  reviewDiv.setAttribute("restaurant-data", `${rest.id}`)
   input.setAttribute("type", "text");
   input.setAttribute("placeholder", "Write a review");
   rest.reviews.forEach(review => {
@@ -46,7 +48,8 @@ function createDiv(restaurant) {
   ul.appendChild(input);
   addRatingSelector(ul);
   ul.appendChild(button);
-  div.appendChild(ul);
+  reviewDiv.appendChild(ul);
+  div.appendChild(reviewDiv);
   main.appendChild(div);
 }
 
@@ -87,6 +90,9 @@ function addReview(review) {
     })
     .then(function(object) {
       console.log(object);
+    })
+    .catch(function(error) {
+      console.log(error);
     })
 }
 
