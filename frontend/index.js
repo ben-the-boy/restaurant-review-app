@@ -33,9 +33,17 @@ function createDiv(restaurant) {
   Price Point: ${rest.priceRange}`;
   img.setAttribute("src", rest.imageURL)
   button.innerText = "Add Review";
+  /*button.addEventListener('click', function() {
+    let content = ;
+    let rating = ;
+    let restaurantID = ;
+    let review = new Review();
+    addReview(review);
+  });*/
   div.appendChild(p);
   div.appendChild(img);
   ul.appendChild(input);
+  addRatingSelector(ul);
   ul.appendChild(button);
   div.appendChild(ul);
   main.appendChild(div);
@@ -47,6 +55,36 @@ class Restaurant {
     this.location = location;
     this.priceRange = priceRange;
     this.imageURL = imageURL;
-    this.reviews = reviews
+    this.reviews = reviews;
   }
+}
+
+class Review {
+  constructor(content, rating, restaurantID) {
+    this.content = content;
+    this.rating = rating;
+    this.restaurantID = restaurantID;
+  }
+}
+
+function addReview(review) {
+
+}
+
+function addRatingSelector(ul) {
+  let values = ["",1,2,3,4,5];
+  let select = document.createElement('select');
+  select.name = "rating";
+  select.id = "rating";
+  values.forEach(value => {
+    let option = document.createElement('option');
+    option.value = value;
+    option.text = value;
+    select.appendChild(option);
+  })
+  let label = document.createElement('label');
+  label.innerHTML = "<br>Rating: ";
+  label.htmlFor = "rating";
+  ul.appendChild(label);
+  ul.appendChild(select);
 }
