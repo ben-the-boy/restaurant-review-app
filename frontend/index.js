@@ -25,6 +25,8 @@ function createDiv(restaurant) {
   reviewDiv.setAttribute("restaurant-data", `${rest.id}`)
   input.setAttribute("type", "text");
   input.setAttribute("placeholder", "Write a review");
+  input.id = `input-${rest.id}`;
+  ul.setAttribute("restaurant-id", `${rest.id}`);
   rest.reviews.forEach(review => {
     let li = document.createElement('li');
     li.innerText = `${review.content}
@@ -36,10 +38,9 @@ function createDiv(restaurant) {
   img.setAttribute("src", rest.imageURL)
   button.innerText = "Add Review";
   button.setAttribute("restaurant-id", `${rest.id}`);
-  //FIGURE OUT HOW TO SUBMIT CORRECT VALUES FOR EACH NEW REVIEW 
   button.addEventListener('click', function() {
-    let content = document.querySelector('input').value;
-    let rating = document.getElementById('rating').value;
+    let content = document.getElementById(`input-${rest.id}`).value;
+    let rating = document.getElementById(`rating-${rest.id}`).value;
     let restaurantID = parseInt(button.getAttribute('restaurant-id'));
     let review = new Review(content, rating, restaurantID);
     addReview(review);
@@ -100,8 +101,9 @@ function addReview(review) {
 function addRatingSelector(ul) {
   let values = ["",1,2,3,4,5];
   let select = document.createElement('select');
-  select.name = "rating";
-  select.id = "rating";
+  select.name = "rating"
+  let restID = parseInt(ul.getAttribute('restaurant-id'));
+  select.id = `rating-${restID}`;
   values.forEach(value => {
     let option = document.createElement('option');
     option.value = value;
