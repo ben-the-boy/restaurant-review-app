@@ -27,6 +27,7 @@ function createDiv(restaurant) {
   input.setAttribute("placeholder", "Write a review");
   input.id = `input-${rest.id}`;
   ul.setAttribute("restaurant-id", `${rest.id}`);
+  ul.id = `reviews-${rest.id}`;
   rest.reviews.forEach(review => {
     let li = document.createElement('li');
     li.innerText = `${review.content}
@@ -47,9 +48,9 @@ function createDiv(restaurant) {
   });
   div.appendChild(p);
   div.appendChild(img);
-  ul.appendChild(input);
-  addRatingSelector(ul);
-  ul.appendChild(button);
+  reviewDiv.appendChild(input);
+  addRatingSelector(reviewDiv);
+  reviewDiv.appendChild(button);
   reviewDiv.appendChild(ul);
   div.appendChild(reviewDiv);
   main.appendChild(div);
@@ -91,7 +92,13 @@ function addReview(review) {
       return response.json();
     })
     .then(function(object) {
-      console.log(object);
+      let ul = document.getElementById(`reviews-${object.restaurant_id}`);
+      let li = document.createElement('li');
+      li.innerText = `${review.content}
+      ${review.rating}/5`;
+      ul.appendChild(li);
+      document.getElementById(`input-${object.restaurant_id}`).value = "";
+      document.getElementById(`rating-${object.restaurant_id}`).value = "";
     })
     .catch(function(error) {
       console.log(error);
@@ -102,7 +109,7 @@ function addRatingSelector(ul) {
   let values = ["",1,2,3,4,5];
   let select = document.createElement('select');
   select.name = "rating"
-  let restID = parseInt(ul.getAttribute('restaurant-id'));
+  let restID = parseInt(ul.getAttribute('restaurant-data'));
   select.id = `rating-${restID}`;
   values.forEach(value => {
     let option = document.createElement('option');
