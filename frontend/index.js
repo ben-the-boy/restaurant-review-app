@@ -1,12 +1,16 @@
 document.addEventListener("DOMContentLoaded", function() {
   loadRestaurants();
-  document.getElementById('add-restaurant').addEventListener('click', function() {
+  document.getElementById('add-restaurant').addEventListener('click', function(e) {
+    e.preventDefault();
     let name = document.getElementById('new-restaurant-name').value;
     let location = document.getElementById('new-restaurant-location').value;
     let priceRange = document.getElementById('new-restaurant-price').value;
     let imageURL = document.getElementById('new-restaurant-image').value;
+    let reviews = [];
+    let id = "";
+    let restaurant = new Restaurant(id, name, location, priceRange, imageURL, reviews)
     addRestaurant(restaurant);
-  })
+  }, false)
 })
 
 function loadRestaurants() {
@@ -15,7 +19,10 @@ function loadRestaurants() {
     return response.json();
   })
   .then(function(obj) {
-    obj.forEach(restaurant => createDiv(restaurant))
+    obj.forEach(restaurant => {
+      console.log(restaurant);
+      createDiv(restaurant)
+    })
   })
 }
 
@@ -131,7 +138,7 @@ function addRatingSelector(ul) {
   ul.appendChild(select);
 }
 
-function addRestaurant() {
+function addRestaurant(restaurant) {
   return fetch("http://localhost:3000/restaurants", {
     method: "POST",
     headers: {
@@ -149,9 +156,9 @@ function addRestaurant() {
       return response.json();
     })
     .then(function(object) {
-      console.log(object);
+      createDiv(object);
+    })
     .catch(function(error) {
       console.log(error);
     })
-}
 }

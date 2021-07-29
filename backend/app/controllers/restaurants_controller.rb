@@ -6,12 +6,14 @@ class RestaurantsController < ApplicationController
   end
 
   def create
+    restaurant = Restaurant.create(name: params[:name], location: params[:location], price_range: params[:price_range], image_url: params[:image_url])
+    render json: restaurant, include: [:reviews]
   end
 
   def update
   end
 
   def destroy
-  end 
+  end
 
 end
