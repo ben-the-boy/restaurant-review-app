@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", function() {
     let id = "";
     let restaurant = new Restaurant(id, name, location, priceRange, imageURL, reviews)
     addRestaurant(restaurant);
+    document.getElementById('new-restaurant-name').value = "";
+    document.getElementById('new-restaurant-location').value = "";
+    document.getElementById('new-restaurant-price').value = "";
+    document.getElementById('new-restaurant-image').value = "";
   }, false)
 })
 
