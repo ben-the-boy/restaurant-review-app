@@ -1,20 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   loadRestaurants();
-  document.getElementById('add-restaurant').addEventListener('click', function(e) {
-    e.preventDefault();
-    let name = document.getElementById('new-restaurant-name').value;
-    let location = document.getElementById('new-restaurant-location').value;
-    let priceRange = document.getElementById('new-restaurant-price').value;
-    let imageURL = document.getElementById('new-restaurant-image').value;
-    let reviews = [];
-    let id = "";
-    let restaurant = new Restaurant(id, name, location, priceRange, imageURL, reviews)
-    addRestaurant(restaurant);
-    document.getElementById('new-restaurant-name').value = "";
-    document.getElementById('new-restaurant-location').value = "";
-    document.getElementById('new-restaurant-price').value = "";
-    document.getElementById('new-restaurant-image').value = "";
-  }, false)
+  newRestaurantClick();
 })
 
 function loadRestaurants() {
@@ -30,6 +16,25 @@ function loadRestaurants() {
   })
 }
 
+class Restaurant {
+  constructor(id, name, location, priceRange, imageURL, reviews) {
+    this.id = id;
+    this.name = name;
+    this.location = location;
+    this.priceRange = priceRange;
+    this.imageURL = imageURL;
+    this.reviews = reviews;
+  }
+}
+
+class Review {
+  constructor(content, rating, restaurantID) {
+    this.content = content;
+    this.rating = rating;
+    this.restaurantID = restaurantID;
+  }
+}
+
 function createDiv(restaurant) {
   let rest = new Restaurant(restaurant.id, restaurant.name, restaurant.location, restaurant.price_range, restaurant.image_url, restaurant.reviews);
   let main = document.querySelector('main');
@@ -40,6 +45,8 @@ function createDiv(restaurant) {
   let input = document.createElement('input');
   let img = document.createElement('img');
   let button = document.createElement('button');
+  div.setAttribute('class', 'restaurant-info');
+  reviewDiv.setAttribute('class', 'reviews')
   reviewDiv.setAttribute("restaurant-data", `${rest.id}`)
   input.setAttribute("type", "text");
   input.setAttribute("placeholder", "Write a review");
@@ -74,24 +81,6 @@ function createDiv(restaurant) {
   main.appendChild(div);
 }
 
-class Restaurant {
-  constructor(id, name, location, priceRange, imageURL, reviews) {
-    this.id = id;
-    this.name = name;
-    this.location = location;
-    this.priceRange = priceRange;
-    this.imageURL = imageURL;
-    this.reviews = reviews;
-  }
-}
-
-class Review {
-  constructor(content, rating, restaurantID) {
-    this.content = content;
-    this.rating = rating;
-    this.restaurantID = restaurantID;
-  }
-}
 
 function addReview(review) {
   return fetch("http://localhost:3000/reviews", {
@@ -165,4 +154,22 @@ function addRestaurant(restaurant) {
     .catch(function(error) {
       console.log(error);
     })
+}
+
+function newRestaurantClick() {
+  document.getElementById('add-restaurant').addEventListener('click', function(e) {
+    e.preventDefault();
+    let name = document.getElementById('new-restaurant-name').value;
+    let location = document.getElementById('new-restaurant-location').value;
+    let priceRange = document.getElementById('new-restaurant-price').value;
+    let imageURL = document.getElementById('new-restaurant-image').value;
+    let reviews = [];
+    let id = "";
+    let restaurant = new Restaurant(id, name, location, priceRange, imageURL, reviews)
+    addRestaurant(restaurant);
+    document.getElementById('new-restaurant-name').value = "";
+    document.getElementById('new-restaurant-location').value = "";
+    document.getElementById('new-restaurant-price').value = "";
+    document.getElementById('new-restaurant-image').value = "";
+  }, false)
 }

@@ -13,21 +13,24 @@
     <main>
 
     </main>
+
+    <div id="new-restaurant">
+      <h2>Add New Restaurant</h2>
+      <input id="new-restaurant-name" type="text" placeholder="Name"></input><br>
+      <input id="new-restaurant-location" type="text" placeholder="Location"></input><br>
+      <select id="new-restaurant-price" name="price-range">
+        <option value="" disabled selected>Price Point</option>
+        <option value="$">$</option>
+        <option value="$$">$$</option>
+        <option value="$$$">$$$</option>
+        <option value="$$$$">$$$$</option>
+      </select><br>
+      <textarea id="new-restaurant-image" placeholder="Image URL"></textarea><br>
+      <input id="add-restaurant" type="submit" value="Add Restaurant"></input>
+    </div>
+
     <footer>
-      <div id="new-restaurant">
-        <h2>Add New Restaurant</h2>
-        <input id="new-restaurant-name" type="text" placeholder="Name"></input><br>
-        <input id="new-restaurant-location" type="text" placeholder="Location"></input><br>
-        <select id="new-restaurant-price" name="price-range">
-          <option value="" disabled selected>Price Point</option>
-          <option value="$">$</option>
-          <option value="$$">$$</option>
-          <option value="$$$">$$$</option>
-          <option value="$$$$">$$$$</option>
-        </select><br>
-        <textarea id="new-restaurant-image" placeholder="Image URL"></textarea><br>
-        <input id="add-restaurant" type="submit" value="Add Restaurant"></input>
-      </div>
+
     </footer>
 
     <script src="./index.js"></script>

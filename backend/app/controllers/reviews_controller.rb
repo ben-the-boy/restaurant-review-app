@@ -7,11 +7,9 @@ class ReviewsController < ApplicationController
 
   def create
     restaurant = Restaurant.find(params[:restaurant_id])
-    if params[:content].present? && params[:rating].present?
-      review = restaurant.reviews.create(content: params[:content], rating: params[:rating])
+    review = restaurant.reviews.new(content: params[:content], rating: params[:rating])
+    if review.save
       render json: review
-    else
-      render json: ["Reviews must have content and rating!!!"]
     end
   end
 
