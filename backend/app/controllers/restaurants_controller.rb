@@ -11,11 +11,5 @@ class RestaurantsController < ApplicationController
       render json: restaurant, include: [:reviews]
     end
   end
-
-  def update
-  end
-
-  def destroy
-  end
-
+  
 end

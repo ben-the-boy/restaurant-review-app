@@ -13,10 +13,4 @@ class ReviewsController < ApplicationController
     end
   end
 
-  def update
-  end
-
-  def destroy
-  end
-
 end
