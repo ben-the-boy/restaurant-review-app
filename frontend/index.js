@@ -121,7 +121,7 @@ function addRatingSelector(ul) {
   values.forEach(value => {
     let option = document.createElement('option');
     option.value = value;
-    option.text = value;
+    option.text = `${value}/5`;
     select.appendChild(option);
   })
   let label = document.createElement('label');
